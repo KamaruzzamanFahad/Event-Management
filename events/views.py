@@ -68,8 +68,8 @@ def dashboard(request):
 
     count = mainquery.aggregate(
         total_events=Count('event_id'),
-        total_categories=Count('category'),
-        total_participants=Count('participants'),
+        total_categories=Count('category', distinct=True),
+        total_participants=Count('participants', distinct=True),
         upcoming_events=Count('event_id', filter=Q(date__gt=date.today())),
         past_events=Count('event_id', filter=Q(date__lt=date.today()))
     )
