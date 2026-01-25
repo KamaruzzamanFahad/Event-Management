@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body class="min-h-screen ">
+    <div class="min-h-screen flex flex-col">
+        {% include "components/header.html" %}
+
+    {% if not update %}
+    <div class="container mx-auto mt-10 w-full justify-center items-center flex md:flex-row flex-col gap-6">
+        <a href="?create=category"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New Category</button></a>
+        <a href="?create=event"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New Event</button></a>
+        <a href="?create=participant"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New Participant</button></a>
+    </div>
+    {% endif %}
+
+    <div>
+        {% if message %}
+            <div class="container mx-auto mt-6 w-full justify-center items-center flex">
+                <p class="text-green-600 font-semibold">{{ message }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if form %}
+    <form action="" method="post" class="container mx-auto mt-10 w-full justify-center items-center flex flex-col gap-6">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Submit</button>
+    </form>
+    {% endif %}
+    </div>
+
+    
+
+
+    
+</body>
+<div>
+    
+</div>
+{% include "footer.html" %}
+</html>
