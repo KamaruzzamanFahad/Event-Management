@@ -61,17 +61,15 @@ def dashboard(request):
         
 
     # total_events = mainquery.count()
-    # total_categories = Category.objects.count()
-    # total_participants = Participant.objects.count()
+    total_categories = Category.objects.count()
+    total_participants = Participant.objects.count()
     # upcoming_events = mainquery.filter(date__gt=date.today()).count()
     # past_events = mainquery.filter(date__lt=date.today()).count()
 
     count = mainquery.aggregate(
         total_events=Count('event_id'),
-        total_categories=Count('category', distinct=True),
-        total_participants=Count('participants', distinct=True),
-        upcoming_events=Count('event_id', filter=Q(date__gt=date.today())),
-        past_events=Count('event_id', filter=Q(date__lt=date.today()))
+        past_events=Count('event_id', filter=Q(date__lt=date.today())),
+        upcoming_events=Count('event_id', filter=Q(date__gt=date.today()))
     )
 
     context = {
@@ -79,8 +77,8 @@ def dashboard(request):
         'is_category': False,
         'is_participant': False,
         'total_events': count['total_events'],
-        'total_categories': count['total_categories'],
-        'total_participants': count['total_participants'],
+        'total_categories': total_categories,
+        'total_participants': total_participants,
         'upcoming_events': count['upcoming_events'],
         'past_events': count['past_events']
     }
