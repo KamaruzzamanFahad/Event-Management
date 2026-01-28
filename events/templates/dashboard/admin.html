@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+{% include 'components/header.html' %}
+<body>
+
+    <!-- Admin: Full access to all features. Only the admin can change roles, create groups, delete groups, and delete participants. -->
+
+    <div class="flex justify-center gap-4">
+        <a href="{% url 'admin_dashboard' 'groups' %}">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">All Group</button>
+        </a>
+        <a href="{% url 'admin_dashboard' 'users' %}">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">All User</button>
+        </a>
+        <a href="{% url 'admin_dashboard' 'participant' %}">
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">All Participant</button>
+        </a>
+        <a href="{% url 'organizer_dashboard' %}">
+            <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Organizer Dashboard</button>
+        </a>
+    </div>
+
+    <!-- if path == dashboard/admi then show  -->
+     {% if path == 'users' %}
+    {% include 'dashboard/user_list.html' %}
+     {% endif %}
+     {% if path == 'groups' %}
+    {% include 'dashboard/group-list.html' %}
+     {% endif %}
+     <!-- {% if path == 'participant' %}
+    {% include 'dashboard/participant_list.html' %}
+     {% endif %} -->
+    
+</body>
+{% include 'footer.html' %}
+</html>

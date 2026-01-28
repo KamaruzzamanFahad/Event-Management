@@ -1,14 +1,14 @@
 <div>
-    {% for participantlist in events %}
+    {% for participant in events %}
     <div class="p-6 border-b border-gray-200 hover:bg-gray-50 transition-all relative">
-        <h2 class="text-xl font-bold text-gray-800">{{ participantlist.name }}</h2>
-        <p class="text-gray-500 mt-2">{{ participantlist.email }}</p>
+        <h2 class="text-xl font-bold text-gray-800">{{ participant.user__username }}</h2>
+        <p class="text-gray-500 mt-2">{{participant.user__email }}</p>
 
         <div class="absolute top-2 right-2 flex flex-col gap-2 z-[999]">
-            <a href="?participant_id={{ participantlist.participant_id }}" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 w-9 h-9 flex items-center justify-center" title="Delete Event">
+            <a href="?participant_id={{ participants.participant_id }}" class="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 w-9 h-9 flex items-center justify-center" title="Delete Event">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
             </a>
-            <a href="/update/?participant_id={{ participantlist.participant_id }}" class="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 w-9 h-9 flex items-center justify-center">
+            <a href="/update/?participant_id={{ participants.participant_id }}" class="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 w-9 h-9 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
             </a>
         </div>

@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participant Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+{% include 'components/header.html' %}
+<body>
+    <p class="text-2xl font-bold text-center mt-10">Your RSVPed Events.</p>
+
+    {% if messages %}
+    <ul class="messages text-center mt-4 p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %} 
+
+    <div class="">
+        {% include 'components/eventlist.html' with events=events %}
+    </div>
+
+</body>
+{% include 'footer.html' %}
+</html>

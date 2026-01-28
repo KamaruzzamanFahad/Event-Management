@@ -1,0 +1,49 @@
+
+<h2 class="text-2xl font-bold mb-4 text-center mt-4">Groups and Permissions</h2>
+<div class="overflow-x-auto ">
+  <div class="flex justify-center py-4">
+    <a href="{% url 'create-group' %}"><button class="p-2 px-7 bg-green-500">Create Group</button></a>
+
+    
+  </div>
+  <div class="flex justify-center py-4">
+      <!-- message show  -->
+       {% for message in messages %}
+       <div class="alert alert-success bg-green-500 p-2">
+         {{message}}
+       </div>
+       {% endfor %}
+    </div>
+        <table class="table-auto w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2">Group Name</th>
+              <th class="border border-gray-300 px-4 py-2">Permissions</th>
+              <th class="border border-gray-300 px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            {% for group in groups %}
+            <tr class="odd:bg-white even:bg-gray-50">
+              <td class="border border-gray-300 px-4 py-2 font-medium">
+                {{group.name}}
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                <ul class="list-disc list-inside">
+                  {% for permission in group.permissions.all %}
+
+                  <li>{{permission}}</li>
+                  {% empty %}
+                  <p>no permission assing</p>
+                  {% endfor %}
+                </ul>
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                <a href="/dashboard/admin/{{group.id}}/delete-group"><button class="p-2 px-7 bg-red-500">Delete Group</button></a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+</div>

@@ -1,6 +1,6 @@
 from django import forms
-from events.models import Event, Category, Participant
-
+from events.models import Event, Category
+from django.contrib.auth.models import Group, Permission
 
 class StyleFormMixin:
      default_classes = "border p-2 w-full mb-4"
@@ -30,21 +30,47 @@ class CreateEvent(StyleFormMixin, forms.ModelForm):
         model = Event
         fields = "name", "imagelink", "location", "date", "time", "description", "category"
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter Event Name'}),
-            'imagelink': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter Image Link'}),
-            'location': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter Event Location'}),
-            'date': forms.SelectDateWidget(attrs={'class': 'form-select'}),
-            'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-input', 'placeholder': 'Enter Event Time'}),
-            'description': forms.Textarea(attrs={'class': 'form-textarea', 'placeholder': 'Enter Event Description'}),
-            'category': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select Category'}),
+            'name': forms.TextInput(attrs={'class': 'form-input w-full', 'placeholder': 'Enter Event Name'}),
+            'imagelink': forms.ClearableFileInput(attrs={'class': 'form-input w-full', 'placeholder': 'Upload Event Image'}),
+            'location': forms.TextInput(attrs={'class': 'form-input w-full', 'placeholder': 'Enter Event Location'}),
+            'date': forms.SelectDateWidget(attrs={'class': 'form-input w-full'}),
+            'time': forms.TimeInput(attrs={'type': 'time', 'class': 'form-input w-full', 'placeholder': 'Enter Event Time'}),
+            'description': forms.Textarea(attrs={'class': 'form-textarea w-full', 'placeholder': 'Enter Event Description'}),
+            'category': forms.Select(attrs={'class': 'form-input w-full', 'placeholder': 'Select Category'}),
         }
 
-class CreateParticipant(StyleFormMixin, forms.ModelForm):
-    class Meta:
-        model = Participant
-        fields = "name", "email", "event"
-        widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter Participant Name'}),
-            'email': forms.EmailInput(attrs={'type': 'email', 'class': 'form-input', 'placeholder': 'Enter Email Address'}),
-            'event': forms.CheckboxSelectMultiple(attrs={'class': 'form-select'}),
-        }   
+# class CreateParticipant(StyleFormMixin, forms.ModelForm):
+#     class Meta:
+#         model = Participant
+#         fields = "name", "email", "event"
+#         widgets = {
+#             'name': forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter Participant Name'}),
+#             'email': forms.EmailInput(attrs={'type': 'email', 'class': 'form-input', 'placeholder': 'Enter Email Address'}),
+#             'event': forms.CheckboxSelectMultiple(attrs={'class': 'form-select'}),
+#         }   
+
+
+class AssignRoleForm(StyleFormMixin, forms.Form):
+     role= forms.ModelChoiceField(
+          queryset=Group.objects.all(),
+          empty_label="Select a Role"
+     )
+     widgets = {
+          'role': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Select Role'}),
+     }
+    
+class CreateGroupForm(StyleFormMixin, forms.ModelForm):
+     permissions = forms.ModelMultipleChoiceField(
+          queryset=Permission.objects.all(),
+          widget=forms.CheckboxSelectMultiple,
+          required=False,
+          label= "Assign Permissition"
+     )
+     widgets = {
+          'permissions': forms.CheckboxSelectMultiple(attrs={'class': 'form-select'}),
+     }
+     class Meta:
+          model=Group
+          fields=['name', 'permissions']
+
+   
