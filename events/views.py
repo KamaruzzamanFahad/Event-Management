@@ -78,6 +78,16 @@ def event_details(request, event_id):
 @user_passes_test(lambda user: check_privilege(user, 'Organizer') or check_privilege(user, 'Admin'), login_url='/users/signin/')
 def organizer_dashboard(request):
 
+    participant_id = request.GET.get('participant_id')
+    event_id = request.GET.get('event_id')
+    if participant_id and event_id:
+        try:
+            participant = RSVP.objects.get(user_id=participant_id, event_id=event_id)
+            participant.delete()
+            messages.success(request, "Participant deleted successfully!")
+        except RSVP.DoesNotExist:
+            messages.error(request, "Participant not found for this event!")
+
     rsvp = request.GET.get('rsvp')
     if rsvp:
         if request.user.is_authenticated:
@@ -135,7 +145,8 @@ def organizer_dashboard(request):
         'total_categories': total_categories,
         'total_participants': count['total_participants'],
         'upcoming_events': count['upcoming_events'],
-        'past_events': count['past_events']
+        'past_events': count['past_events'],
+        'is_admin': check_privilege(request.user, 'Admin')
     }
     event = request.GET.get('event')
     if event == 'total_events':
@@ -153,7 +164,10 @@ def organizer_dashboard(request):
     elif event == 'all_Participant':
         participants = RSVP.objects.select_related('event', 'user').values(
             'user__username',
-            'user__email'
+            'user__email',
+            'user__id',
+            'event__event_id',
+            'event__name',
         )
         context['events'] = participants
         context['is_participant'] = True
@@ -253,6 +267,17 @@ def participant_dashboard(request):
 
 @user_passes_test(lambda user: check_privilege(user, 'Admin'), login_url='/users/signin/')
 def admin_dashboard(request, path):
+    participant_id = request.GET.get('participant_id')
+    event_id = request.GET.get('event_id')
+    if participant_id and event_id:
+        try:
+            participant = RSVP.objects.get(user_id=participant_id, event_id=event_id)
+            participant.delete()
+            messages.success(request, "Participant deleted successfully!")
+        except RSVP.DoesNotExist:
+            messages.error(request, "Participant not found for this event!")
+
+
     users = None
     groups = None
     participants = None
@@ -261,8 +286,14 @@ def admin_dashboard(request, path):
     elif path == 'groups':
         groups = Group.objects.all()
     elif path == 'participant':
-        participants = [] #Participant.objects.all()
-    return render(request, 'dashboard/admin.html', {'path': path, 'users': users, 'groups': groups, 'participants': participants})
+        participants = RSVP.objects.select_related('event', 'user').values(
+            'user__username',
+            'user__email',
+            'user__id',
+            'event__event_id',
+            'event__name',
+        )
+    return render(request, 'dashboard/admin.html', {'path': path, 'users': users, 'groups': groups, 'participants': participants, 'is_admin': True})
 
 
 @user_passes_test(lambda user: check_privilege(user, 'Admin'), login_url='/users/signin/')

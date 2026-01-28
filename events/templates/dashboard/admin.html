@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="{% static 'css/output.css' %}">
 </head>
 {% include 'components/header.html' %}
-<body>
+<body class="min-h-screen">
 
     <!-- Admin: Full access to all features. Only the admin can change roles, create groups, delete groups, and delete participants. -->
+<div class="min-h-screen">
 
     <div class="flex justify-center gap-4">
         <a href="{% url 'admin_dashboard' 'groups' %}">
@@ -27,6 +28,14 @@
         </a>
     </div>
 
+    {% if messages %}
+    <ul class="messages mt-2 text-center p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
     <!-- if path == dashboard/admi then show  -->
      {% if path == 'users' %}
     {% include 'dashboard/user_list.html' %}
@@ -34,10 +43,13 @@
      {% if path == 'groups' %}
     {% include 'dashboard/group-list.html' %}
      {% endif %}
-     <!-- {% if path == 'participant' %}
-    {% include 'dashboard/participant_list.html' %}
-     {% endif %} -->
+     {% if path == 'participant' %}
+    <div class="w-1/2 mx-auto mt-4">
+        {% include 'components/participantlist.html' with participants=participants %}
+    </div>
+     {% endif %}
     
+</div>
 </body>
 {% include 'footer.html' %}
 </html>
