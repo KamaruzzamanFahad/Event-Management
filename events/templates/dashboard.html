@@ -65,6 +65,14 @@
                 <span class="px-3 py-1 bg-orange-100 text-orange-600 text-xs font-bold rounded-full uppercase tracking-wider">Live View</span>
             </div>
 
+            {% if messages %}
+    <ul class="messages mt-2 text-center p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
             {% if not is_category and not is_participant %}
             <div class="overflow-x-auto">
               {% include "components/eventlist.html" with events=events %}

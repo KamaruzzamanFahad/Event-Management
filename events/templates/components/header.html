@@ -27,9 +27,9 @@
                         HOME
                     </a>
                 </li>
-                <li><a href="#" class="hover:text-orange-500">ABOUT US</a></li>
-                <li><a href="/event/" class="hover:text-orange-500">EVENTS</a></li>
-                <li><a href="#" class="hover:text-orange-500">GALLERY</a></li>
+                <!-- <li><a href="#" class="hover:text-orange-500">ABOUT US</a></li> -->
+                <!-- <li><a href="/event/" class="hover:text-orange-500">EVENTS</a></li> -->
+                <!-- <li><a href="#" class="hover:text-orange-500">GALLERY</a></li> -->
                  <li>
                     <a href="/create/"
                        class="{% if request.resolver_match.url_name == 'create' or request.resolver_match.url_name == 'event_details' %}
@@ -38,6 +38,8 @@
                         CREATE
                     </a>
                 </li>
+                
+                {% if request.user.is_authenticated %}
                 <li>
                     <a href="/dashboard/"
                        class="{% if request.resolver_match.url_name == 'dashboard' %}
@@ -46,7 +48,39 @@
                         DASHBOARD
                     </a>
                 </li>
+
+                <li>
+                    <a href="{% url 'signout' %}"
+                       class="{% if request.resolver_match.url_name == 'dashboard' %}
+                       text-orange-500 border-b-4 border-orange-500 pb-8
+                       {% else %}hover:text-orange-500{% endif %}">
+                        LOGOUT
+                    </a>
+                </li>
+                {% else %}
+                <div class="flex items-center gap-4">   
+                <button class="bg-orange-500 text-white px-4 py-2 rounded">
+                    <a href="{% url 'signup' %}"
+                       class="{% if request.resolver_match.url_name == 'signup' %}
+                       text-gray-800 border-b-4 border-orange-500 pb-8
+                       {% else %}hover:text-gray-800{% endif %}">
+                        SIGN UP
+                    </a>
+                </button>   
+                <button class="bg-orange-500 text-white px-4 py-2 rounded">
+                    <a href="{% url 'signin' %}"
+                       class="{% if request.resolver_match.url_name == 'signin' %}
+                       text-gray-800 border-b-4 border-orange-500 pb-8
+                       {% else %}hover:text-gray-800 {% endif %}">
+                        SIGN IN
+                    </a>    
+                </button>
+            </div>
+            {% endif %}
             </ul>
+
+            
+            
         </div>
 
         <button id="menu-btn" class="lg:hidden text-gray-700">
@@ -61,11 +95,17 @@
     <div id="mobile-menu" class="hidden lg:hidden px-6 pb-6">
         <ul class="flex flex-col gap-4 text-[14px] font-bold text-gray-700">
             <li><a href="/" class="hover:text-orange-500">HOME</a></li>
-            <li><a href="#" class="hover:text-orange-500">ABOUT US</a></li>
-            <li><a href="/event/" class="hover:text-orange-500">EVENTS</a></li>
-            <li><a href="#" class="hover:text-orange-500">GALLERY</a></li>
+            <!-- <li><a href="#" class="hover:text-orange-500">ABOUT US</a></li> -->
+            <!-- <li><a href="/event/" class="hover:text-orange-500">EVENTS</a></li> -->
+            <!-- <li><a href="#" class="hover:text-orange-500">GALLERY</a></li> -->
             <li><a href="/create/" class="hover:text-orange-500">CREATE</a></li>
+            {% if request.user.is_authenticated %}
             <li><a href="/dashboard/" class="hover:text-orange-500">DASHBOARD</a></li>
+            <li><a href="{% url 'signout' %}" class="hover:text-orange-500">LOGOUT</a></li>
+            {% else %}
+            <li><a href="{% url 'signin' %}" class="hover:text-orange-500">SIGN IN</a></li>
+            <li><a href="{% url 'signup' %}" class="hover:text-orange-500">SIGN UP</a></li>
+            {% endif %}             
         </ul>
     </div>
 </nav>
