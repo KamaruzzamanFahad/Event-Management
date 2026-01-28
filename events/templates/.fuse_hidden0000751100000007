@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+     <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body>
+    
+
+   <div class="min-h-[100vh]">
+     {% include 'components/header.html' %}
+
+    {% include 'components/hero.html' %}
+    {% include 'components/search.html' %}
+
+    <br>
+
+    {% if messages %}
+    <ul class="messages text-center p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    {% include 'components/eventlist.html' with events=events %}
+   </div>
+
+
+    {% include 'footer.html' %}
+
+
+
+
+</body>
+</html>

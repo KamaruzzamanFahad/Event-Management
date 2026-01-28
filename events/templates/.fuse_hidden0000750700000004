@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body class="min-h-screen ">
+    <div class="min-h-screen flex flex-col">
+        {% include "components/header.html" %}
+
+    {% if not update %}
+    <div class="container mx-auto mt-10 w-full justify-center items-center flex md:flex-row flex-col gap-6">
+        <a href="?create=category"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New Category</button></a>
+        <a href="?create=event"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New Event</button></a>
+        <!-- <a href="?create=participant"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New Participant</button></a> -->
+    </div>
+    {% endif %}
+
+    <div>
+        {% if message %}
+            <div class="container mx-auto mt-6 w-full justify-center items-center flex">
+                <p class="text-green-600 font-semibold">{{ message }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if form %}
+    <div class="max-w-2xl mx-auto mt-10 p-8 bg-white shadow-2xl rounded-2xl border border-gray-100">
+    <div class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-800">
+            {% if form.imagelink %} 
+                Create New Event 
+            {% else %} 
+                Create New Category 
+            {% endif %}
+        </h2>
+        <p class="text-gray-500 text-sm">Please fill out the details below.</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="{% if not form.imagelink %} md:col-span-2 {% endif %}">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                {{ form.name }}
+            </div>
+
+            {% if form.category %}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                {{ form.category }}
+            </div>
+            {% endif %}
+
+            {% if form.imagelink %}
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                    {{ form.location }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    {{ form.date }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                    {{ form.time }}
+                </div>
+
+                <div class="md:col-span-2">
+                    if from.imagelink
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Upload Image</label>
+                    <div class="mt-1 flex items-center justify-center w-full px-6 py-4 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 hover:bg-gray-100 transition cursor-pointer">
+                        {{ form.imagelink }}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="md:col-span-2">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                {{ form.description }}
+            </div>
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-xl font-semibold shadow-lg hover:opacity-90 transition transform hover:-translate-y-0.5">
+            {% if form.imagelink %} Save Event {% else %} Save Category {% endif %}
+        </button>
+    </form>
+</div>
+    {% endif %}
+    </div>
+
+    
+
+
+    
+</body>
+<div>
+    
+</div>
+{% include "footer.html" %}
+</html>

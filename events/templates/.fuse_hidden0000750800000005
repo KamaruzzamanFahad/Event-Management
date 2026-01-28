@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+    <title>Organizer Dashboard</title>
+</head>
+<body>
+
+    {% include "components/header.html" %}
+
+    <div class="max-w-6xl mx-auto mt-10 min-h-screen">
+        <div class="flex md:justify-between items-center md:flex-row flex-col justify-center md:items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-8">Organizer Dashboard</h1>
+        <a href="/create"><button class="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600 transition-colors">Create New</button></a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+            <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
+                <p class="text-sm font-semibold text-gray-500 uppercase">Total Participants</p>
+                <h2 class="text-3xl font-bold text-gray-800 mt-1">{{ total_participants }}</h2>
+            </div>
+
+            <a href="?event=total_events">
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-orange-500 cursor-pointer hover:bg-orange-50 transition-all">
+                <p class="text-sm font-semibold text-gray-500 uppercase">Total Events</p>
+                <h2 class="text-3xl font-bold text-gray-800 mt-1">{{ total_events }}</h2>
+            </div>
+            </a>
+
+            <a href="?event=upcoming_events">
+                <div  class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500 cursor-pointer hover:bg-green-50 transition-all">
+                <p class="text-sm font-semibold text-gray-500 uppercase">Upcoming Events</p>
+                <h2  class="text-3xl font-bold text-gray-800 mt-1">{{ upcoming_events }}</h2>
+            </div>
+            </a>
+
+            <a href="?event=past_events">
+                <div  class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-red-500 cursor-pointer hover:bg-red-50 transition-all">
+                <p class="text-sm font-semibold text-gray-500 uppercase">Past Events</p>
+                <h2  class="text-3xl font-bold text-gray-800 mt-1">{{ past_events }}</h2>
+            </div>
+            </a>
+
+            <a href="?event=all_category">
+                <div  class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500 cursor-pointer hover:bg-purple-50 transition-all">
+                <p class="text-sm font-semibold text-gray-500 uppercase">All Categories</p>
+                <h2  class="text-3xl font-bold text-gray-800 mt-1">{{ total_categories }}</h2>
+            </div>
+            </a>
+
+            <a href="?event=all_Participant">
+                <div  class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-purple-500 cursor-pointer hover:bg-purple-50 transition-all">
+                <p class="text-sm font-semibold text-gray-500 uppercase">All Participants</p>
+                <h2  class="text-3xl font-bold text-gray-800 mt-1">{{ total_participants }}</h2>
+            </div>
+            </a>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="px-8 py-5 bg-gray-50 border-b border-gray-100 flex justify-between items-center">
+                <h3 id="list-title" class="text-lg font-bold text-gray-700">{{request.GET.event |title}}</h3>
+                <span class="px-3 py-1 bg-orange-100 text-orange-600 text-xs font-bold rounded-full uppercase tracking-wider">Live View</span>
+            </div>
+
+            {% if messages %}
+    <ul class="messages mt-2 text-center p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+            {% if not is_category and not is_participant %}
+            <div class="overflow-x-auto">
+              {% include "components/eventlist.html" with events=events %}
+            </div>
+            {% endif %}
+
+
+            {% if is_category %}
+               {% include "components/catagorylist.html" with events=events %}
+            {% endif %}
+
+            {% if is_participant %}
+                {% include "components/participantlist.html" with events=events %}
+            {% endif %}
+
+
+        </div>
+    </div>
+
+    {% include "footer.html" %}
+</body>
+</html>
