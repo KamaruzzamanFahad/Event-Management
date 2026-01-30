@@ -164,9 +164,9 @@ def organizer_dashboard(request):
     # past_events = mainquery.filter(date__lt=date.today()).count()
 
     count = mainquery.aggregate(
-        total_events=Count('event_id'),
-        past_events=Count('event_id', filter=Q(date__lt=date.today())),
-        upcoming_events=Count('event_id', filter=Q(date__gt=date.today())),
+        total_events=Count('event_id', distinct=True), # unique event
+        past_events=Count('event_id', filter=Q(date__lt=date.today()), distinct=True),
+        upcoming_events=Count('event_id', filter=Q(date__gt=date.today()), distinct=True),
         total_participants=Count('participants')
     )
 
