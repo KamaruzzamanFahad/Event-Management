@@ -167,10 +167,5 @@ EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-
-
-<<<<<<<<< Temporary merge branch 1
 FRONTEND_URL = "https://event-management-7dup.onrender.com/"
-=========
-FRONTEND_URL = "https://event-management-7dup.onrender.com" 
->>>>>>>>> Temporary merge branch 2
+
