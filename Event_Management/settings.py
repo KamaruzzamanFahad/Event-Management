@@ -169,4 +169,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 
+<<<<<<<<< Temporary merge branch 1
 FRONTEND_URL = "https://event-management-7dup.onrender.com/"
+=========
+FRONTEND_URL = "https://event-management-7dup.onrender.com" 
+>>>>>>>>> Temporary merge branch 2
