@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile | {{ user.username }}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+
+            {% include 'components/header.html' %}
+<body class="bg-gray-50 font-sans antialiased">
+     {% if messages %}
+    <ul class="messages mt-2 text-center p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+    <div class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="max-w-lg w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+
+            
+            <div class="mb-8 text-center">
+                <h2 class="text-2xl font-bold text-gray-800">Edit Profile</h2>
+            </div>
+
+
+            {% if user.profile_picture %}
+            <div class="flex justify-center">
+                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-20 h-20 rounded-full">
+            </div>
+            {% endif %}
+
+            <form method="post" enctype="multipart/form-data" class="space-y-2">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="flex flex-col">
+                        <label class="text-sm font-medium text-gray-700 mb-1 ml-1">
+                            {{ field.label }}
+                        </label>
+                        
+                        {{ field }}
+
+                        {% if field.errors %}
+                            {% for error in field.errors %}
+                                <span class="text-red-500 text-xs mt-1 ml-1">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="pt-6 flex flex-col sm:flex-row gap-3">
+                    <button type="submit" class="flex-1 bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition duration-200">
+                        Save Changes
+                    </button>
+                    <a href="{% url 'profile' user.username %}" class="flex-1 bg-gray-100 text-gray-600 text-center py-3 rounded-xl font-semibold hover:bg-gray-200 transition duration-200">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>
