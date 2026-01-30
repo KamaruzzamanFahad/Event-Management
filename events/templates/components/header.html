@@ -1,3 +1,5 @@
+
+{% load static %}
 <nav class="bg-white shadow-sm">
     <div class="flex items-center justify-between px-6 lg:px-16 py-4">
         <a href="/">
@@ -49,14 +51,52 @@
                     </a>
                 </li>
 
-                <li>
+                <!-- <li>
                     <a href="{% url 'signout' %}"
                        class="{% if request.resolver_match.url_name == 'dashboard' %}
                        text-orange-500 border-b-4 border-orange-500 pb-8
                        {% else %}hover:text-orange-500{% endif %}">
                         LOGOUT
                     </a>
+                </li> -->
+
+                <li>
+                     <div class="relative group">
+                        {% if request.user.profile_picture %}
+                    <img
+                        src="{{ request.user.profile_picture.url }}"
+                        alt="User Profile"
+                        class="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-blue-500 transition-colors cursor-pointer"
+                    />
+                    {% else %}
+                    <img
+                        src="{% static 'media/profile_pictures/user.jpg' %}"
+                        alt="User Profile"
+                        class="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-blue-500 transition-colors cursor-pointer"
+                    />
+                    {% endif %}
+                    
+
+                    <!-- Dropdown Menu -->
+                    <div class="hidden group-hover:block absolute right-0 mt-0 w-48 bg-white rounded-lg shadow-lg py-2 z-50 border border-gray-200">
+                        <a href="/dashboard/" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                            Dashboard
+                        </a>
+                        <a href="/users/{{ request.user.username }}/" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                            Profile
+                        </a>
+                        <a href="/users/{{ request.user.username }}/change-password/" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors">
+                            Change Password
+                        </a>
+                        <hr class="my-2 border-gray-200" />
+                        <a href="{% url 'signout' %}" class="block px-4 py-2 text-red-600 hover:bg-red-50 transition-colors">
+                            Logout
+                        </a>
+                    </div>
+                </div>
                 </li>
+
+
                 {% else %}
                 <div class="flex items-center gap-4">   
                 <button class="bg-orange-500 text-white px-4 py-2 rounded">
@@ -118,3 +158,5 @@
         mobileMenu.classList.toggle('hidden');
     });
 </script>
+
+

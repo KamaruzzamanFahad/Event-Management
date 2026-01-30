@@ -94,25 +94,27 @@ WSGI_APPLICATION = 'Event_Management.wsgi.application'
 
 
 # pip install "psycopg[binary]"
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='5432')
+    }
+}
+
+
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('DB_NAME'),
-#         'USER': config('DB_USER'),
-#         'PASSWORD': config('DB_PASSWORD'),
-#         'HOST': config('DB_HOST'),
-#         'PORT': config('DB_PORT', default='5432')
-#     }
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='postgresql://event_management_40k8_user:2ROapMNbiKrRFpP3lCgcFHc51vVtylF6@dpg-d5r1nvp5pdvs739fcalg-a.virginia-postgres.render.com/event_management_40k8',
+#         conn_max_age=600
+#     )
 # }
 
-
-DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://event_management_40k8_user:2ROapMNbiKrRFpP3lCgcFHc51vVtylF6@dpg-d5r1nvp5pdvs739fcalg-a.virginia-postgres.render.com/event_management_40k8',
-        conn_max_age=600
-    )
-}
+AUTH_USER_MODEL = 'users.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators

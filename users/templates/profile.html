@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }} | Profile</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+{% include 'components/header.html' %}
+<body class="bg-gray-50 font-sans antialiased">
+
+     {% if messages %}
+    <ul class="messages mt-2 text-center p-2 bg-gray-100 rounded-lg w-1/2 mx-auto">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="max-w-md w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            
+            <div class="flex flex-col items-center">
+                <div class="w-24 h-24 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-3xl font-bold mb-4">
+                   <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="w-full h-full object-cover rounded-full">
+                </div>
+                <h2 class="text-2xl font-semibold text-gray-800">{{ user.get_full_name|default:user.username }}</h2>
+                <p class="text-gray-500 text-sm">Member since {{ user.date_joined|date:"F Y" }}</p>
+                
+                <div class="mt-3">
+                    {% for group in user.groups.all %}
+                        <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-medium rounded-full uppercase tracking-wider">
+                            {{ group.name }}
+                        </span>
+                    {% empty %}
+                        <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">General User</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="mt-8 space-y-4">
+                <div class="flex items-center justify-between border-b border-gray-50 pb-3">
+                    <span class="text-gray-400 text-sm">Email Address</span>
+                    <span class="text-gray-700 font-medium">{{ user.email|default:"Not provided" }}</span>
+                </div>
+                <div class="flex items-center justify-between border-b border-gray-50 pb-3">
+                    <span class="text-gray-400 text-sm">Username</span>
+                    <span class="text-gray-700 font-medium">@{{ user.username }}</span>
+                </div>
+                <div class="flex items-center justify-between pb-3">
+                    <span class="text-gray-400 text-sm">Account Status</span>
+                    <span class="flex items-center text-green-600 font-medium text-sm">
+                        <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> Active
+                    </span>
+                </div>
+            </div>
+
+            <div class="mt-10 flex flex-col space-y-3">
+                <a href="{% url 'update_profile' user.username %}" class="w-full bg-indigo-600 text-white text-center py-2.5 rounded-xl font-medium hover:bg-indigo-700 transition duration-200">
+                    Edit Profile
+                </a>
+                <form action="{% url 'signout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="w-full bg-white text-red-500 border border-red-100 py-2.5 rounded-xl font-medium hover:bg-red-50 transition duration-200">
+                        Log Out
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</body>
+{% include 'footer.html' %}
+</html>
