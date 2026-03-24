@@ -39,7 +39,7 @@ class GroupRequiredMixin(UserPassesTestMixin):
         return redirect(self.login_url)
 
 def check_privilege(user, group_name):
-    return user.groups.filter(name=group_name).exists()
+    return user.groups.filter(name=group_name.lower()).exists() or user.is_superuser
 
 def send_rsvp_email(user, event):
     subject = "RSVP to Event"
