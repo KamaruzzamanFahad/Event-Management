@@ -1,0 +1,215 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - EVENTYFLY</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col">
+      {% include 'components/header.html' %}
+
+      <!-- Hero Section -->
+      <div
+        class="relative bg-cover bg-center bg-no-repeat py-24"
+        
+      >
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div
+          class="relative z-10 flex flex-col items-center justify-center text-center text-white px-4"
+        >
+          <h3 class="text-orange-500 font-bold uppercase tracking-widest mb-4">
+            Who We Are
+          </h3>
+          <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
+            About <span class="text-orange-500">EVENTYFLY</span>
+          </h1>
+          <div class="flex items-center space-x-2 text-sm">
+            <a href="/" class="hover:text-orange-500 transition">Home</a>
+            <span>|</span>
+            <span class="text-gray-300">About Us</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <main class="flex-grow container mx-auto px-6 lg:px-16 py-16">
+        <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Mission</h2>
+            <p class="text-gray-600 leading-relaxed mb-6">
+              At EVENTYFLY, we believe that every event should be an
+              unforgettable experience. Our mission is to provide a seamless
+              platform for organizers to create, manage, and promote events,
+              while making it easy for participants to discover and join
+              experiences that matter to them.
+            </p>
+            <p class="text-gray-600 leading-relaxed">
+              Whether it's a small workshop, a grand wedding, or a massive music
+              festival, our tools are designed to handle the complexity so you
+              can focus on the connection.
+            </p>
+          </div>
+          <div class="rounded-2xl overflow-hidden shadow-2xl skew-y-1">
+            <img
+              src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=800&q=80"
+              alt="Event Management"
+              class="w-full h-full object-cover transform hover:scale-105 transition duration-500"
+            />
+          </div>
+        </div>
+
+        <div
+          class="grid md:grid-cols-3 gap-8 text-center bg-white p-12 rounded-3xl shadow-sm border border-gray-100 mb-24"
+        >
+          <div class="p-6">
+            <div
+              class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-orange-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Community First</h3>
+            <p class="text-gray-500">
+              Connecting people through shared interests and unforgettable
+              moments.
+            </p>
+          </div>
+          <div class="p-6">
+            <div
+              class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-blue-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Secure & Reliable</h3>
+            <p class="text-gray-500">
+              Your data and transactions are protected with industry-leading
+              security.
+            </p>
+          </div>
+          <div class="p-6">
+            <div
+              class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-8 h-8 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Seamless Experience</h3>
+            <p class="text-gray-500">
+              Easy to use interface for both event organizers and participants.
+            </p>
+          </div>
+        </div>
+
+        <div class="text-center mb-16">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">Meet Our Team</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Our diverse team of experts is dedicated to making EVENTYFLY the
+            best event management platform in the world.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Team Member 1 -->
+          <div class="group">
+            <div class="relative overflow-hidden rounded-2xl mb-4 h-64">
+              <img
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80"
+                alt="Team Member"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-orange-500 bg-opacity-0 group-hover:bg-opacity-20 transition duration-500"
+              ></div>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">John Doe</h4>
+            <p class="text-orange-500 font-medium">CEO & Founder</p>
+          </div>
+          <!-- Team Member 2 -->
+          <div class="group">
+            <div class="relative overflow-hidden rounded-2xl mb-4 h-64">
+              <img
+                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80"
+                alt="Team Member"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-orange-500 bg-opacity-0 group-hover:bg-opacity-20 transition duration-500"
+              ></div>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">Jane Smith</h4>
+            <p class="text-orange-500 font-medium">Head of Operations</p>
+          </div>
+          <!-- Team Member 3 -->
+          <div class="group">
+            <div class="relative overflow-hidden rounded-2xl mb-4 h-64">
+              <img
+                src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80"
+                alt="Team Member"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-orange-500 bg-opacity-0 group-hover:bg-opacity-20 transition duration-500"
+              ></div>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">Michael Brown</h4>
+            <p class="text-orange-500 font-medium">Lead Developer</p>
+          </div>
+          <!-- Team Member 4 -->
+          <div class="group">
+            <div class="relative overflow-hidden rounded-2xl mb-4 h-64">
+              <img
+                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80"
+                alt="Team Member"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+              />
+              <div
+                class="absolute inset-0 bg-orange-500 bg-opacity-0 group-hover:bg-opacity-20 transition duration-500"
+              ></div>
+            </div>
+            <h4 class="text-xl font-bold text-gray-800">Sarah Wilson</h4>
+            <p class="text-orange-500 font-medium">Marketing Director</p>
+          </div>
+        </div>
+      </main>
+
+      {% include 'footer.html' %}
+    </div>
+  </body>
+</html>

@@ -520,4 +520,12 @@ def dashboard_redirect(request):
         return redirect('/dashboard/access-denied')
 
 
+class AboutUsView(TemplateView):
+    template_name = 'about.html'
+
+
+class ContactUsView(TemplateView):
+    template_name = 'contact.html'
+
+
 

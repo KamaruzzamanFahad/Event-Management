@@ -1,0 +1,94 @@
+{% load static %}
+<section class="py-20 bg-gray-50">
+  <div class="container mx-auto px-6 lg:px-16">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div>
+        <h3 class="text-orange-500 font-bold uppercase tracking-widest mb-4">
+          Categories
+        </h3>
+        <h2 class="text-4xl font-bold text-gray-800">
+          Explore Popular Categories
+        </h2>
+      </div>
+      <a
+        href="/"
+        class="text-orange-500 font-bold border-b-2 border-orange-500 pb-1 mt-6 md:mt-0 hover:text-orange-600 hover:border-orange-600 transition"
+        >View All Categories</a
+      >
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Category 1 -->
+      <a
+        href="/?keyword=conference"
+        class="group relative overflow-hidden rounded-3xl aspect-[4/5]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=600&q=80"
+          alt="Conferences"
+          class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"
+        ></div>
+        <div class="absolute bottom-6 left-6 text-white text-xl font-bold">
+          Conferences
+        </div>
+      </a>
+
+      <!-- Category 2 -->
+      <a
+        href="/?keyword=music"
+        class="group relative overflow-hidden rounded-3xl aspect-[4/5]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1514525253361-bee8d1354f97?auto=format&fit=crop&w=600&q=80"
+          alt="Music"
+          class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"
+        ></div>
+        <div class="absolute bottom-6 left-6 text-white text-xl font-bold">
+          Music Concerts
+        </div>
+      </a>
+
+      <!-- Category 3 -->
+      <a
+        href="/?keyword=tech"
+        class="group relative overflow-hidden rounded-3xl aspect-[4/5]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=600&q=80"
+          alt="Workshops"
+          class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"
+        ></div>
+        <div class="absolute bottom-6 left-6 text-white text-xl font-bold">
+          Tech Workshops
+        </div>
+      </a>
+
+      <!-- Category 4 -->
+      <a
+        href="/?keyword=social"
+        class="group relative overflow-hidden rounded-3xl aspect-[4/5]"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&q=80"
+          alt="Social"
+          class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"
+        ></div>
+        <div class="absolute bottom-6 left-6 text-white text-xl font-bold">
+          Social Events
+        </div>
+      </a>
+    </div>
+  </div>
+</section>

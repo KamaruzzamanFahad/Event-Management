@@ -1,5 +1,5 @@
 from django.urls import path
-from events.views import home, EventDetails,organizer_dashboard, ParticipantDaashboard, CreateTaskAndCatagory, UpdateEventAndCatagory, AdminDashboard, assign_role, create_group, delete_group,access_denied, dashboard_redirect
+from events.views import home, EventDetails,organizer_dashboard, ParticipantDaashboard, CreateTaskAndCatagory, UpdateEventAndCatagory, AdminDashboard, assign_role, create_group, delete_group,access_denied, dashboard_redirect, AboutUsView, ContactUsView
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -16,4 +16,6 @@ urlpatterns = [
     path("dashboard/admin/<int:user_id>/assign-role/", assign_role, name="assign_role"),
     path("dashboard/admin/<int:group_id>/delete-group/", delete_group, name="delete-group"),
     path("dashboard/access-denied/", access_denied, name="access_denied"),
+    path('about/', AboutUsView.as_view(), name='about'),
+    path('contact/', ContactUsView.as_view(), name='contact'),
 ]
