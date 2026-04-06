@@ -1,10 +1,16 @@
 from django.urls import path
-from events.views import home, EventDetails,organizer_dashboard, ParticipantDaashboard, CreateTaskAndCatagory, UpdateEventAndCatagory, AdminDashboard, assign_role, create_group, delete_group,access_denied, dashboard_redirect, AboutUsView, ContactUsView
+from events.views import (
+    home, EventDetails, organizer_dashboard, ParticipantDaashboard, 
+    CreateTaskAndCatagory, UpdateEventAndCatagory, AdminDashboard, 
+    assign_role, create_group, delete_group, access_denied, 
+    dashboard_redirect, AboutUsView, ContactUsView, all_events
+)
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('', home, name='home'),
     path('event/', home, name='home'),
+    path('all-events/', all_events, name='all_events'),
     path('event/<int:event_id>/', EventDetails.as_view(), name='event_details'),
     path('dashboard/organizer/', organizer_dashboard, name='organizer_dashboard'),
     path('dashboard/participant/', ParticipantDaashboard.as_view(), name='participant_dashboard'),

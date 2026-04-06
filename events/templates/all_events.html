@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events - EVENTYFLY</title>
+     <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+<body>
+    
+
+   <div class="min-h-[100vh]">
+     {% include 'components/header.html' %}
+
+    <div class="pt-20">
+        {% include 'components/search.html' %}
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 border-l-4 border-orange-500 pl-4">All Events</h1>
+        
+        {% if messages %}
+            <ul class="messages text-center p-2 bg-gray-100 rounded-lg mb-8">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{% if message.tags == 'error' %} text-red-500 {% else %} text-green-500 {% endif %}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if events %}
+            {% include 'components/eventlist.html' with events=events %}
+        {% else %}
+            <div class="text-center py-20 bg-gray-50 rounded-lg">
+                <p class="text-gray-500 text-xl font-medium">No events found matching your criteria.</p>
+                <a href="{% url 'all_events' %}" class="inline-block mt-4 text-orange-500 font-bold hover:underline">View all events instead</a>
+            </div>
+        {% endif %}
+    </div>
+    
+    {% include 'components/newsletter.html' %}
+   </div>
+
+
+    {% include 'footer.html' %}
+
+
+</body>
+</html>

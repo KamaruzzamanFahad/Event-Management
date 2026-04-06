@@ -67,32 +67,74 @@ def home(request):
         else:
             messages.error(request, "You need to login to RSVP!")
             return redirect('/users/signin/')
-    keword = request.GET.get('keyword')
+    keyword = request.GET.get('keyword')
     date = request.GET.get('date') 
 
     events=[]
     mainquery = Event.objects.prefetch_related('participants').select_related('category')
 
-    if date and keword:
+    if date and keyword:
          events = mainquery.filter(
-            Q(name__icontains=keword) |
-            Q(location__icontains=keword) |
-            Q(description__icontains=keword),
+            Q(name__icontains=keyword) |
+            Q(location__icontains=keyword) |
+            Q(description__icontains=keyword),
+            date__exact=date
+        )[:3]
+
+    elif keyword:
+        events = mainquery.filter(
+            Q(name__icontains=keyword) |
+            Q(location__icontains=keyword) |
+            Q(description__icontains=keyword)
+        )[:3]
+    elif date:
+        events = mainquery.filter(date__exact=date)[:3]
+    else:
+        events = mainquery.all()[:3]
+
+    return render(request, 'home.html', {'events': events})
+
+
+def all_events(request):
+    rsvp = request.GET.get('rsvp')
+    if rsvp:
+        if request.user.is_authenticated:
+            event = Event.objects.get(event_id=rsvp)
+            if event.participants.filter(id=request.user.id).exists():
+                messages.error(request, "You have already RSVPed to this event!")
+                return redirect('/all-events/')
+            event.participants.add(request.user)
+            send_rsvp_email(request.user, event)
+            messages.success(request, "RSVPed successfully!")
+            return redirect('/all-events/')    
+        else:
+            messages.error(request, "You need to login to RSVP!")
+            return redirect('/users/signin/')
+
+    keyword = request.GET.get('keyword')
+    date = request.GET.get('date')
+
+    mainquery = Event.objects.prefetch_related('participants').select_related('category')
+
+    if date and keyword:
+        events = mainquery.filter(
+            Q(name__icontains=keyword) |
+            Q(location__icontains=keyword) |
+            Q(description__icontains=keyword),
             date__exact=date
         )
-
-    elif keword:
+    elif keyword:
         events = mainquery.filter(
-            Q(name__icontains=keword) |
-            Q(location__icontains=keword) |
-            Q(description__icontains=keword)
+            Q(name__icontains=keyword) |
+            Q(location__icontains=keyword) |
+            Q(description__icontains=keyword)
         )
     elif date:
         events = mainquery.filter(date__exact=date)
     else:
         events = mainquery.all()
 
-    return render(request, 'home.html', {'events': events})
+    return render(request, 'all_events.html', {'events': events})
 
     
 # def event_details(request, event_id):
